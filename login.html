@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 福彩3D号码生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --success-color: #4ade80;
+            --danger-color: #f87171;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --bg-white: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-container {
+            background-color: var(--bg-white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            transition: var(--transition);
+            background-color: var(--bg-light);
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            background-color: var(--bg-white);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .error {
+            color: var(--danger-color);
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .info {
+            color: var(--text-light);
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .login-container {
+                padding: 30px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>福彩3D号码生成器</h1>
+        
+        <div class="form-group">
+            <label for="username">账号：</label>
+            <input type="text" id="username" placeholder="请输入账号" value="admin">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">密码：</label>
+            <input type="password" id="password" placeholder="请输入密码">
+        </div>
+        
+        <button class="login-btn" onclick="login()">登录</button>
+        
+        <div class="error" id="error"></div>
+        
+        <div class="info">
+            <p>账号：admin</p>
+        </div>
+        
+        <!-- 彩种选择界面 -->
+        <div id="lottery-select" style="display: none; margin-top: 30px;">
+            <h2 style="text-align: center; margin-bottom: 20px; font-size: 20px; color: var(--text-color);">选择彩种</h2>
+            <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                <button class="lottery-btn" style="flex: 1; padding: 14px 20px; border: 2px solid var(--border-color); border-radius: 8px; background-color: var(--bg-light); cursor: pointer; font-size: 16px; font-weight: 600; transition: var(--transition);" onclick="selectLottery('3d')">福彩3D</button>
+                <button class="lottery-btn" style="flex: 1; padding: 14px 20px; border: 2px solid var(--border-color); border-radius: 8px; background-color: var(--bg-light); cursor: pointer; font-size: 16px; font-weight: 600; transition: var(--transition);" onclick="selectLottery('pl3')">体彩排列3</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorElement = document.getElementById('error');
+            
+            // 获取当天日期，格式为YYYYMMDD
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const correctPassword = `${year}${month}${day}`;
+            
+            // 验证账号和密码
+            if (username === 'admin' && password === correctPassword) {
+                // 登录成功，设置登录状态
+                localStorage.setItem('isLoggedIn', 'true');
+                // 显示彩种选择界面
+                document.querySelector('.form-group').style.display = 'none';
+                document.querySelector('.form-group + .form-group').style.display = 'none';
+                document.querySelector('.login-btn').style.display = 'none';
+                document.querySelector('.error').style.display = 'none';
+                document.querySelector('.info').style.display = 'none';
+                document.getElementById('lottery-select').style.display = 'block';
+            } else {
+                // 登录失败，显示错误信息
+                errorElement.textContent = '账号或密码错误，请检查输入';
+            }
+        }
+        
+        // 选择彩种并跳转到主页面
+        function selectLottery(type) {
+            // 存储选择的彩种类型
+            localStorage.setItem('selectedLottery', type);
+            // 跳转到主页面
+            window.location.href = 'lottery3d.html';
+        }
+        
+        // 回车键登录
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+    </script>
+</body>
+</html>

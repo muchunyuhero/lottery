@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>福彩3D号码生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --success-color: #4ade80;
+            --warning-color: #fbbf24;
+            --danger-color: #f87171;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --bg-white: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background-color: var(--bg-white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            transition: var(--transition);
+            background-color: var(--bg-light);
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            background-color: var(--bg-white);
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            transition: var(--transition);
+            background-color: var(--bg-light);
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            background-color: var(--bg-white);
+        }
+        
+        .lottery-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        
+        .lottery-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--bg-light);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lottery-btn:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .lottery-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .lottery-btn.active::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
+            transform: translateX(-100%);
+            animation: shine 1.5s infinite;
+        }
+        
+        @keyframes shine {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        .multiple-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .multiple-btn {
+            padding: 10px 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--bg-light);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: var(--transition);
+            flex: 1 1 calc(33.333% - 5.333px);
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .multiple-btn:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .multiple-btn.active {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+        
+        .count-display {
+            padding: 16px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            color: var(--primary-color);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .action-btn:active {
+            transform: translateY(0);
+        }
+        
+        .generate-btn {
+            background: linear-gradient(135deg, var(--success-color), #22c55e);
+            color: white;
+        }
+        
+        .export-btn {
+            background: linear-gradient(135deg, var(--accent-color), #06b6d4);
+            color: white;
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 30px;
+            background-color: var(--bg-light);
+            border-radius: var(--border-radius);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .result h3 {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .result h3::before {
+            content: '🎯';
+            font-size: 20px;
+        }
+        
+        .numbers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            background-color: var(--bg-white);
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .numbers::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .numbers::-webkit-scrollbar-track {
+            background: var(--bg-light);
+            border-radius: 4px;
+        }
+        
+        .numbers::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        
+        .numbers::-webkit-scrollbar-thumb:hover {
+            background: var(--text-light);
+        }
+        
+        .number {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            min-width: 80px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .number::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+        }
+        
+        .number:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .error {
+            color: var(--danger-color);
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .history-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .history-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .history-container {
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .history-table th {
+            background-color: var(--bg-white);
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .history-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-white);
+        }
+        
+        .history-table tr:nth-child(even) td {
+            background-color: var(--bg-light);
+        }
+        
+        .history-table tr:hover td {
+            background-color: #f0f9ff;
+        }
+        
+        .add-record-form {
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .add-record-form h4 {
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .period-display {
+            padding: 14px;
+            background-color: #f0f9ff;
+            border-radius: 6px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            border: 1px solid #dbeafe;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                padding: 30px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .lottery-buttons {
+                flex-direction: column;
+            }
+            
+            .multiple-btn {
+                flex: 1 1 calc(50% - 4px);
+            }
+            
+            .number {
+                min-width: 70px;
+                padding: 12px 16px;
+                font-size: 16px;
+            }
+            
+            .history-buttons {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .multiple-btn {
+                flex: 1 1 100%;
+            }
+            
+            .result {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h1 id="title">福彩3D号码生成器</h1>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <button class="action-btn export-btn" onclick="logout()" style="padding: 10px 20px; font-size: 14px;">登出</button>
+                <button id="switch-lottery-btn" class="action-btn generate-btn" onclick="switchLotteryType()" style="padding: 8px 16px; font-size: 12px; background: linear-gradient(135deg, var(--success-color), #22c55e);">切换到体彩</button>
+            </div>
+        </div>
+        
+
+        
+        <div class="form-group">
+            <label>生成号码数量：</label>
+            <input type="number" id="count" min="1" max="1000" value="480">
+        </div>
+        
+        <div class="form-group">
+            <label>历史开奖记录：</label>
+            <div class="history-buttons">
+                <button class="action-btn export-btn" onclick="toggleHistory()">查看历史开奖记录</button>
+                <button class="action-btn generate-btn" onclick="toggleAddRecord()">添加开奖记录</button>
+            </div>
+            <div id="history-container" style="display: none; background-color: #f8f9fa; border-radius: 8px; padding: 15px; max-height: 400px; overflow-y: auto;">
+                <div id="history-content"></div>
+            </div>
+            <div id="add-record-container" style="display: none; background-color: #f8f9fa; border-radius: 8px; padding: 15px;">
+                <h4 style="margin-bottom: 15px;">添加新的开奖记录</h4>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">当前期号：</label>
+                    <div id="current-period" class="period-display"></div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="new-number" style="display: block; margin-bottom: 5px; font-weight: 600;">开奖号码：</label>
+                    <input type="text" id="new-number" placeholder="请输入3位开奖号码">
+                </div>
+                <button class="action-btn generate-btn" onclick="addNewRecord()" style="width: 100%;">保存记录</button>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="action-btn generate-btn" onclick="generateNumbers()">生成号码</button>
+            <button class="action-btn export-btn" onclick="exportNumbers()">复制到剪贴板</button>
+        </div>
+        
+        <div class="action-buttons" style="margin-top: 10px;">
+            <button class="action-btn generate-btn" onclick="removeHistoryNumbers()" style="background: linear-gradient(135deg, var(--warning-color), #f59e0b);">剔除历史开奖号码</button>
+            <button class="action-btn export-btn" onclick="exportFilteredNumbers()">复制到剪贴板剔除版</button>
+        </div>
+        
+        <div id="filter-info" style="display: none; margin-top: 10px; padding: 10px; background-color: #fef3c7; border-radius: 8px; color: #92400e; font-size: 14px;"></div>
+        
+        <div class="result" id="result">
+            <h3>生成结果：</h3>
+            <div class="numbers" id="numbers"></div>
+        </div>
+        
+        <!-- 倍数选择弹窗 -->
+        <div id="multiple-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
+            <div style="background-color: white; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                <h3 style="text-align: center; margin-bottom: 20px; color: var(--text-color);">选择投注倍数</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; justify-content: center;">
+                    <button type="button" class="multiple-btn" onclick="selectMultipleInModal(0.3)" style="flex: 1 1 calc(33.333% - 7px); min-width: 80px; padding: 12px;">0.3</button>
+                    <button type="button" class="multiple-btn" onclick="selectMultipleInModal(0.5)" style="flex: 1 1 calc(33.333% - 7px); min-width: 80px; padding: 12px;">0.5</button>
+                    <button type="button" class="multiple-btn" onclick="selectMultipleInModal(0.7)" style="flex: 1 1 calc(33.333% - 7px); min-width: 80px; padding: 12px;">0.7</button>
+                    <button type="button" class="multiple-btn" onclick="selectMultipleInModal(1)" style="flex: 1 1 calc(33.333% - 7px); min-width: 80px; padding: 12px;">1</button>
+                    <button type="button" class="multiple-btn" onclick="selectMultipleInModal(1.2)" style="flex: 1 1 calc(33.333% - 7px); min-width: 80px; padding: 12px;">1.2</button>
+                    <button type="button" class="multiple-btn" onclick="selectMultipleInModal(1.5)" style="flex: 1 1 calc(33.333% - 7px); min-width: 80px; padding: 12px;">1.5</button>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="action-btn export-btn" onclick="closeMultipleModal()" style="flex: 1;">取消</button>
+                    <button class="action-btn generate-btn" onclick="confirmMultipleAndCopy()" style="flex: 1;">确认复制</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 检查登录状态
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+        
+        let generatedNumbers = [];
+        
+        // 历史开奖记录数据
+        const historyData = {
+            '3d': [
+                { period: '2026073', number: '504' },
+                { period: '2026072', number: '245' },
+                { period: '2026071', number: '261' },
+                { period: '2026070', number: '484' },
+                { period: '2026069', number: '908' },
+                { period: '2026068', number: '706' },
+                { period: '2026067', number: '695' },
+                { period: '2026066', number: '934' },
+                { period: '2026065', number: '57' },
+                { period: '2026064', number: '604' },
+                { period: '2026063', number: '517' },
+                { period: '2026062', number: '294' },
+                { period: '2026061', number: '429' },
+                { period: '2026060', number: '943' },
+                { period: '2026059', number: '794' },
+                { period: '2026058', number: '543' },
+                { period: '2026057', number: '264' },
+                { period: '2026056', number: '477' },
+                { period: '2026055', number: '107' },
+                { period: '2026054', number: '217' },
+                { period: '2026053', number: '755' },
+                { period: '2026052', number: '277' },
+                { period: '2026051', number: '302' },
+                { period: '2026050', number: '689' },
+                { period: '2026049', number: '110' },
+                { period: '2026048', number: '612' },
+                { period: '2026047', number: '936' },
+                { period: '2026046', number: '291' },
+                { period: '2026045', number: '181' },
+                { period: '2026044', number: '589' }
+            ],
+            'pl3': [
+                { period: '2026073', number: '325' },
+                { period: '2026072', number: '115' },
+                { period: '2026071', number: '551' },
+                { period: '2026070', number: '131' },
+                { period: '2026069', number: '114' },
+                { period: '2026068', number: '840' },
+                { period: '2026067', number: '428' },
+                { period: '2026066', number: '807' },
+                { period: '2026065', number: '851' },
+                { period: '2026064', number: '528' },
+                { period: '2026063', number: '723' },
+                { period: '2026062', number: '315' },
+                { period: '2026061', number: '347' },
+                { period: '2026060', number: '118' },
+                { period: '2026059', number: '209' },
+                { period: '2026058', number: '590' },
+                { period: '2026057', number: '479' },
+                { period: '2026056', number: '119' },
+                { period: '2026055', number: '537' },
+                { period: '2026054', number: '655' },
+                { period: '2026053', number: '744' },
+                { period: '2026052', number: '649' },
+                { period: '2026051', number: '45' },
+                { period: '2026050', number: '435' },
+                { period: '2026049', number: '592' },
+                { period: '2026048', number: '97' },
+                { period: '2026047', number: '330' },
+                { period: '2026046', number: '703' },
+                { period: '2026045', number: '144' },
+                { period: '2026044', number: '51' }
+            ]
+        };
+        
+        // 获取当前选择的彩种类型
+        function getCurrentLotteryType() {
+            return localStorage.getItem('selectedLottery') || '3d';
+        }
+        
+        // 更新页面标题和切换按钮
+        function updatePageTitle() {
+            const type = getCurrentLotteryType();
+            const title = document.getElementById('title');
+            const switchBtn = document.getElementById('switch-lottery-btn');
+            if (type === '3d') {
+                title.textContent = '福彩3D号码生成器';
+                switchBtn.textContent = '切换到体彩';
+            } else {
+                title.textContent = '体彩排列3号码生成器';
+                switchBtn.textContent = '切换到福彩';
+            }
+        }
+        
+        // 切换彩种类型
+        function switchLotteryType() {
+            const currentType = getCurrentLotteryType();
+            const newType = currentType === '3d' ? 'pl3' : '3d';
+            localStorage.setItem('selectedLottery', newType);
+            updatePageTitle();
+            
+            // 清空生成的号码和剔除信息
+            generatedNumbers = [];
+            filteredNumbers = [];
+            document.getElementById('numbers').innerHTML = '';
+            document.getElementById('filter-info').style.display = 'none';
+            
+            // 检查是否需要添加开奖记录
+            checkMissingDrawRecord();
+            
+            alert('已切换到' + (newType === '3d' ? '福彩3D' : '体彩排列3'));
+        }
+        
+        // 显示/隐藏历史开奖记录
+        function toggleHistory() {
+            const container = document.getElementById('history-container');
+            const addRecordContainer = document.getElementById('add-record-container');
+            
+            if (container.style.display === 'none') {
+                // 显示历史记录
+                container.style.display = 'block';
+                addRecordContainer.style.display = 'none';
+                
+                // 获取当前选择的彩种
+                const selectedType = getCurrentLotteryType();
+                displayHistory(selectedType);
+            } else {
+                // 隐藏历史记录
+                container.style.display = 'none';
+            }
+        }
+        
+        // 删除开奖记录
+        function deleteRecord(period) {
+            const selectedType = getCurrentLotteryType();
+            const data = historyData[selectedType];
+            
+            // 找到要删除的记录索引
+            const index = data.findIndex(item => item.period === period);
+            if (index !== -1) {
+                // 删除记录
+                data.splice(index, 1);
+                alert('开奖记录已删除');
+                // 更新历史记录显示
+                displayHistory(selectedType);
+            } else {
+                alert('未找到指定期号的记录');
+            }
+        }
+
+        // 显示历史开奖记录
+        function displayHistory(type) {
+            const content = document.getElementById('history-content');
+            const data = historyData[type];
+            
+            let html = '<table class="history-table">';
+            html += '<tr><th>期号</th><th style="text-align: center;">开奖号码</th><th style="text-align: center;">操作</th></tr>';
+            
+            data.forEach((item, index) => {
+                html += `<tr>`;
+                html += `<td>${item.period}</td>`;
+                html += `<td style="text-align: center;"><span style="font-weight: bold; color: var(--primary-color);">${item.number}</span></td>`;
+                html += `<td style="text-align: center;"><button onclick="deleteRecord('${item.period}')" style="padding: 4px 8px; background-color: var(--danger-color); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">删除</button></td>`;
+                html += '</tr>';
+            });
+            
+            html += '</table>';
+            content.innerHTML = html;
+        }
+        
+        // 显示/隐藏添加记录表单
+        function toggleAddRecord() {
+            const container = document.getElementById('add-record-container');
+            const historyContainer = document.getElementById('history-container');
+            
+            if (container.style.display === 'none') {
+                // 显示添加记录表单
+                container.style.display = 'block';
+                historyContainer.style.display = 'none';
+                
+                // 检查是否有缺失的期号
+                const missingPeriods = checkMissingPeriods();
+                if (missingPeriods.length > 0) {
+                    // 有缺失的期号，显示最早的缺失期号
+                    const earliestMissingPeriod = missingPeriods[missingPeriods.length - 1];
+                    document.getElementById('current-period').textContent = earliestMissingPeriod;
+                    // 提示用户
+                    setTimeout(() => {
+                        alert('请先添加缺失的开奖记录：' + earliestMissingPeriod);
+                    }, 100);
+                } else {
+                    // 没有缺失的期号，显示当前日期的期号
+                    const currentPeriod = calculateCurrentPeriod();
+                    document.getElementById('current-period').textContent = currentPeriod;
+                }
+            } else {
+                // 隐藏添加记录表单
+                container.style.display = 'none';
+            }
+        }
+        
+        // 计算当前期号（基于用户提供的规则）
+        function calculateCurrentPeriod() {
+            // 获取当前日期
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // 重置时间部分，避免时区问题
+            const year = today.getFullYear();
+            
+            // 基准日期：2026年3月24日对应期号2026073
+            const baseDate = new Date(2026, 2, 24); // 月份从0开始，3月是2
+            baseDate.setHours(0, 0, 0, 0); // 重置时间部分
+            const basePeriod = 73;
+            
+            // 计算当前日期与基准日期的天数差
+            const timeDiff = today - baseDate;
+            const dayDiff = Math.floor(timeDiff / (24 * 60 * 60 * 1000));
+            
+            // 计算当前期号
+            const currentPeriod = basePeriod + dayDiff;
+            const period = `${year}${currentPeriod.toString().padStart(3, '0')}`;
+            return period;
+        }
+        
+        // 检查是否有连续的期号缺失
+        function checkMissingPeriods() {
+            const selectedType = getCurrentLotteryType();
+            const data = historyData[selectedType];
+            
+            // 按期号排序（从大到小）
+            const sortedData = [...data].sort((a, b) => parseInt(b.period) - parseInt(a.period));
+            
+            const missingPeriods = [];
+            
+            // 获取当前日期对应的期号
+            const currentPeriod = parseInt(calculateCurrentPeriod());
+            
+            // 如果历史记录为空，检查从基准期号到当前期号之间的缺失
+            if (sortedData.length === 0) {
+                const basePeriod = 73; // 2026073
+                for (let p = basePeriod; p < currentPeriod; p++) {
+                    missingPeriods.push(`2026${p.toString().padStart(3, '0')}`);
+                }
+                return missingPeriods;
+            }
+            
+            // 获取历史记录中最大的期号（提取数字部分）
+            const maxPeriodStr = sortedData[0].period;
+            const maxPeriod = parseInt(maxPeriodStr.substring(4)); // 提取后3位数字
+            
+            // 检查从历史最大期号到当前期号之间的缺失
+            const currentPeriodNum = parseInt(calculateCurrentPeriod().substring(4)); // 提取后3位数字
+            if (currentPeriodNum > maxPeriod) {
+                for (let p = maxPeriod + 1; p < currentPeriodNum; p++) {
+                    missingPeriods.push(`2026${p.toString().padStart(3, '0')}`);
+                }
+            }
+            
+            // 检查历史记录内部的连续期号缺失
+            for (let i = 0; i < sortedData.length - 1; i++) {
+                const period1 = parseInt(sortedData[i].period.substring(4)); // 提取后3位数字
+                const period2 = parseInt(sortedData[i + 1].period.substring(4)); // 提取后3位数字
+                
+                // 计算期号差
+                const diff = period1 - period2;
+                if (diff > 1) {
+                    // 有缺失的期号
+                    for (let j = 1; j < diff; j++) {
+                        const missingPeriod = `2026${(period1 - j).toString().padStart(3, '0')}`;
+                        if (!missingPeriods.includes(missingPeriod)) {
+                            missingPeriods.push(missingPeriod);
+                        }
+                    }
+                }
+            }
+            
+            return missingPeriods;
+        }
+
+        // 添加新的开奖记录
+        function addNewRecord() {
+            const period = document.getElementById('current-period').textContent;
+            const number = document.getElementById('new-number').value.trim();
+            const selectedType = getCurrentLotteryType();
+            
+            // 验证输入
+            if (!number || number.length < 1 || number.length > 3) {
+                alert('请输入1-3位开奖号码');
+                return;
+            }
+            
+            // 检查是否有未添加的期号（排除当前正在添加的期号）
+            const missingPeriods = checkMissingPeriods();
+            const otherMissingPeriods = missingPeriods.filter(p => p !== period);
+            
+            if (otherMissingPeriods.length > 0) {
+                // 强制提示用户添加缺失的期号
+                const confirmAdd = confirm('检测到有未添加的开奖记录：\n' + otherMissingPeriods.join('\n') + '\n\n请先添加这些期号的记录。');
+                if (confirmAdd) {
+                    // 显示添加记录表单，并设置为最早的缺失期号
+                    const earliestMissingPeriod = otherMissingPeriods[otherMissingPeriods.length - 1];
+                    document.getElementById('current-period').textContent = earliestMissingPeriod;
+                    // 清空输入框
+                    document.getElementById('new-number').value = '';
+                    return;
+                } else {
+                    return;
+                }
+            }
+            
+            // 格式化号码（确保是数字）
+            const formattedNumber = number.replace(/\D/g, '');
+            
+            // 检查期号是否已存在
+            const existingRecord = historyData[selectedType].find(item => item.period === period);
+            if (existingRecord) {
+                // 更新现有记录
+                existingRecord.number = formattedNumber;
+                alert('开奖记录已更新');
+            } else {
+                // 添加新记录
+                historyData[selectedType].unshift({ period, number: formattedNumber });
+                alert('开奖记录已添加');
+            }
+            
+            // 清空输入
+            document.getElementById('new-number').value = '';
+            
+            // 隐藏添加记录表单
+            document.getElementById('add-record-container').style.display = 'none';
+            
+            // 如果历史记录面板是打开的，更新显示
+            const historyContainer = document.getElementById('history-container');
+            if (historyContainer.style.display === 'block') {
+                displayHistory(selectedType);
+            }
+        }
+        
+        // 检查是否需要添加开奖记录
+        function checkMissingDrawRecord() {
+            const selectedType = getCurrentLotteryType();
+            const data = historyData[selectedType];
+            
+            // 计算当前期号（基于日期）
+            const currentPeriod = calculateCurrentPeriod();
+            
+            // 检查是否存在该期号的记录
+            const hasRecord = data.some(item => item.period === currentPeriod);
+            
+            if (!hasRecord) {
+                // 获取当前时间
+                const now = new Date();
+                const currentHour = now.getHours();
+                const currentMinute = now.getMinutes();
+                
+                // 检查是否已过21:20
+                const isAfter2120 = (currentHour > 21) || (currentHour === 21 && currentMinute >= 20);
+                
+                if (isAfter2120) {
+                    // 21:20后强制弹窗提示用户添加开奖记录
+                    const confirmAdd = confirm('检测到有未添加的开奖记录，是否立即添加？\n期号：' + currentPeriod);
+                    if (confirmAdd) {
+                        // 显示添加记录表单
+                        toggleAddRecord();
+                    }
+                }
+            }
+        }
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化无操作自动退出功能
+            setupInactivityListener();
+            
+            // 检查并设置默认彩种
+            updatePageTitle();
+            
+            // 检查是否需要添加开奖记录
+            checkMissingDrawRecord();
+        });
+        
+        function generateNumbers() {
+            const countInput = document.getElementById('count');
+            const count = parseInt(countInput.value);
+            const numbersContainer = document.getElementById('numbers');
+            
+            // 验证输入
+            if (isNaN(count) || count < 1 || count > 1000) {
+                alert('请输入1-1000之间的有效号码数量');
+                countInput.value = '480'; // 重置为默认值
+                return;
+            }
+            
+            // 生成不重复的号码
+            const numbers = new Set();
+            while (numbers.size < count) {
+                // 生成000-999之间的随机数
+                const num = Math.floor(Math.random() * 1000);
+                // 格式化为3位数字，不足前面补0
+                const formattedNum = num.toString().padStart(3, '0');
+                numbers.add(formattedNum);
+            }
+            
+            // 保存生成的号码到全局变量并排序
+            generatedNumbers = Array.from(numbers).sort((a, b) => a.localeCompare(b));
+            
+            // 清空容器
+            numbersContainer.innerHTML = '';
+            
+            // 显示生成的号码
+            generatedNumbers.forEach(num => {
+                const numberElement = document.createElement('div');
+                numberElement.className = 'number';
+                numberElement.textContent = num;
+                numbersContainer.appendChild(numberElement);
+            });
+        }
+        
+        // 存储剔除后的号码
+        let filteredNumbers = [];
+        
+        // 剔除历史开奖号码
+        function removeHistoryNumbers() {
+            if (generatedNumbers.length === 0) {
+                alert('请先生成号码');
+                return;
+            }
+            
+            const selectedType = getCurrentLotteryType();
+            const historyDataList = historyData[selectedType];
+            
+            // 获取历史开奖号码列表
+            const historyNumbers = historyDataList.map(item => item.number.padStart(3, '0'));
+            
+            // 过滤掉历史开奖号码
+            filteredNumbers = generatedNumbers.filter(num => !historyNumbers.includes(num));
+            
+            // 计算剔除的数量
+            const removedCount = generatedNumbers.length - filteredNumbers.length;
+            
+            // 显示剔除信息
+            const filterInfo = document.getElementById('filter-info');
+            filterInfo.style.display = 'block';
+            filterInfo.textContent = `已剔除 ${removedCount} 个历史开奖号码，剩余 ${filteredNumbers.length} 个号码`;
+            
+            // 更新显示
+            const numbersContainer = document.getElementById('numbers');
+            numbersContainer.innerHTML = '';
+            
+            filteredNumbers.forEach(num => {
+                const numberElement = document.createElement('div');
+                numberElement.className = 'number';
+                numberElement.textContent = num;
+                numbersContainer.appendChild(numberElement);
+            });
+            
+            alert(`已剔除 ${removedCount} 个历史开奖号码，剩余 ${filteredNumbers.length} 个号码`);
+        }
+        
+        // 导出剔除版号码
+        function exportFilteredNumbers() {
+            if (filteredNumbers.length === 0) {
+                alert('请先点击"剔除历史开奖号码"按钮');
+                return;
+            }
+            
+            // 显示倍数选择弹窗（用于剔除版）
+            showMultipleModalForFiltered();
+        }
+        
+        // 倍数选择弹窗相关变量
+        let selectedMultipleInModal = 1;
+        
+        // 显示倍数选择弹窗
+        function showMultipleModal() {
+            const modal = document.getElementById('multiple-modal');
+            modal.style.display = 'flex';
+            // 获取当前倍数作为默认值
+            selectedMultipleInModal = parseFloat(document.getElementById('multiple').value) || 1;
+            // 更新按钮状态
+            updateModalMultipleButtons(selectedMultipleInModal);
+        }
+        
+        // 关闭倍数选择弹窗
+        function closeMultipleModal() {
+            const modal = document.getElementById('multiple-modal');
+            modal.style.display = 'none';
+        }
+        
+        // 在弹窗中选择倍数
+        function selectMultipleInModal(value) {
+            selectedMultipleInModal = value;
+            selectedMultipleForFiltered = value;
+            updateModalMultipleButtons(value);
+        }
+        
+        // 更新弹窗中倍数按钮的状态
+        function updateModalMultipleButtons(activeValue) {
+            const buttons = document.querySelectorAll('#multiple-modal .multiple-btn');
+            buttons.forEach(btn => {
+                const btnValue = parseFloat(btn.textContent);
+                if (btnValue === activeValue) {
+                    btn.style.backgroundColor = 'var(--accent-color)';
+                    btn.style.color = 'white';
+                    btn.style.borderColor = 'var(--accent-color)';
+                } else {
+                    btn.style.backgroundColor = 'var(--bg-light)';
+                    btn.style.color = 'var(--text-color)';
+                    btn.style.borderColor = 'var(--border-color)';
+                }
+            });
+        }
+        
+        // 确认倍数并复制
+        function confirmMultipleAndCopy() {
+            // 关闭弹窗
+            closeMultipleModal();
+            
+            // 获取生成的号码数量
+            const count = generatedNumbers.length;
+            
+            // 计算乘积（保留1位小数，四舍五入）
+            const product = (count * selectedMultipleInModal).toFixed(1);
+            
+            // 根据彩种类型确定后缀
+            const lotteryType = getCurrentLotteryType();
+            const typeSuffix = lotteryType === '3d' ? '福直' : '体直';
+            
+            // 构建复制内容：号码 + 计算信息
+            const numbersText = generatedNumbers.join(' ');
+            const calculationText = `=${count}*${selectedMultipleInModal}=${product} ${typeSuffix}`;
+            const fullText = numbersText + ' ' + calculationText;
+            
+            // 复制到剪贴板
+            navigator.clipboard.writeText(fullText).then(() => {
+                alert('号码已复制到剪贴板\n投注倍数：' + selectedMultipleInModal);
+            }).catch(err => {
+                alert('复制失败，请手动复制');
+                console.error('复制失败:', err);
+            });
+        }
+        
+        // 剔除版倍数选择弹窗相关变量
+        let selectedMultipleForFiltered = 1;
+        
+        // 显示剔除版倍数选择弹窗
+        function showMultipleModalForFiltered() {
+            const modal = document.getElementById('multiple-modal');
+            modal.style.display = 'flex';
+            selectedMultipleForFiltered = 1;
+            updateModalMultipleButtons(selectedMultipleForFiltered);
+            
+            // 修改确认按钮的点击事件
+            const confirmBtn = document.querySelector('#multiple-modal .generate-btn');
+            confirmBtn.onclick = confirmMultipleAndCopyFiltered;
+        }
+        
+        // 确认倍数并复制（剔除版）
+        function confirmMultipleAndCopyFiltered() {
+            // 关闭弹窗
+            closeMultipleModal();
+            
+            // 获取剔除后的号码数量
+            const count = filteredNumbers.length;
+            
+            // 计算乘积（保留1位小数，四舍五入）
+            const product = (count * selectedMultipleForFiltered).toFixed(1);
+            
+            // 根据彩种类型确定后缀
+            const lotteryType = getCurrentLotteryType();
+            const typeSuffix = lotteryType === '3d' ? '福直' : '体直';
+            
+            // 构建复制内容：号码 + 计算信息
+            const numbersText = filteredNumbers.join(' ');
+            const calculationText = `=${count}*${selectedMultipleForFiltered}=${product} ${typeSuffix}`;
+            const fullText = numbersText + ' ' + calculationText;
+            
+            // 复制到剪贴板
+            navigator.clipboard.writeText(fullText).then(() => {
+                alert('剔除版号码已复制到剪贴板\n投注倍数：' + selectedMultipleForFiltered);
+            }).catch(err => {
+                alert('复制失败，请手动复制');
+                console.error('复制失败:', err);
+            });
+            
+            // 恢复确认按钮的原始点击事件
+            const confirmBtn = document.querySelector('#multiple-modal .generate-btn');
+            confirmBtn.onclick = confirmMultipleAndCopy;
+        }
+        
+        function exportNumbers() {
+            if (generatedNumbers.length === 0) {
+                alert('请先生成号码');
+                return;
+            }
+            
+            // 显示倍数选择弹窗
+            showMultipleModal();
+        }
+        
+        // 无操作自动退出功能
+        let inactivityTimer;
+        const INACTIVITY_TIMEOUT = 120000; // 2分钟
+
+        // 重置无操作定时器
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                logout();
+            }, INACTIVITY_TIMEOUT);
+        }
+
+        // 登出函数
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = 'login.html';
+        }
+
+        // 为用户操作添加事件监听器
+        function setupInactivityListener() {
+            const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+            events.forEach(event => {
+                document.addEventListener(event, resetInactivityTimer, true);
+            });
+            // 初始设置定时器
+            resetInactivityTimer();
+        }
+    </script>
+</body>
+</html>
