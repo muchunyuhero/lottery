@@ -32,22 +32,22 @@
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            max-width: 100%;
+            margin: 0;
+            padding: 10px;
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: block;
         }
         
         .container {
             background-color: var(--bg-white);
-            padding: 40px;
+            padding: 20px;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-lg);
             width: 100%;
+            max-width: 800px;
+            margin: 10px auto;
             animation: fadeIn 0.6s ease-out;
         }
         
@@ -419,64 +419,294 @@
             border: 1px solid #dbeafe;
         }
         
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+        
+        .header-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .header-buttons .action-btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            min-width: 100px;
+        }
+        
+        /* 手机端通用样式 */
         @media (max-width: 768px) {
             body {
-                padding: 15px;
+                padding: 8px;
             }
             
             .container {
-                padding: 30px;
+                padding: 15px;
+                border-radius: 10px;
+                margin: 5px auto;
             }
             
             h1 {
-                font-size: 24px;
+                font-size: 18px;
+                margin-bottom: 15px;
+                line-height: 1.3;
+            }
+            
+            .form-group {
+                margin-bottom: 15px;
+            }
+            
+            label {
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+            
+            input[type="number"], input[type="text"] {
+                padding: 10px 12px;
+                font-size: 16px;
+                -webkit-text-size-adjust: 100%;
             }
             
             .action-buttons {
                 flex-direction: column;
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .action-btn {
+                padding: 14px 16px;
+                font-size: 14px;
+                min-height: 44px;
             }
             
             .lottery-buttons {
                 flex-direction: column;
+                gap: 10px;
+            }
+            
+            .lottery-btn {
+                padding: 12px 16px;
+                min-height: 44px;
             }
             
             .multiple-btn {
-                flex: 1 1 calc(50% - 4px);
+                flex: 1 1 calc(50% - 5px);
+                padding: 10px 12px;
+                font-size: 13px;
+                min-height: 40px;
             }
             
             .number {
-                min-width: 70px;
-                padding: 12px 16px;
-                font-size: 16px;
+                min-width: 55px;
+                padding: 10px 14px;
+                font-size: 14px;
             }
             
             .history-buttons {
                 flex-direction: column;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
+                gap: 10px;
             }
             
-            .multiple-btn {
-                flex: 1 1 100%;
+            .numbers {
+                max-height: 200px;
+                padding: 10px;
+                gap: 8px;
             }
             
             .result {
+                padding: 15px;
+                margin-top: 15px;
+            }
+            
+            .result h3 {
+                font-size: 16px;
+            }
+            
+            .header-section {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .header-buttons {
+                flex-direction: row;
+                width: 100%;
+                gap: 10px;
+            }
+            
+            .header-buttons .action-btn {
+                flex: 1;
+                padding: 10px 12px;
+                font-size: 13px;
+                min-height: 40px;
+            }
+            
+            /* 历史记录表格 */
+            .history-table {
+                font-size: 12px;
+            }
+            
+            .history-table th, .history-table td {
+                padding: 8px 6px;
+            }
+            
+            /* 添加记录表单 */
+            .add-record-form {
+                padding: 15px;
+            }
+            
+            /* 回测功能响应式样式 */
+            #backtest-dashboard {
+                padding: 12px;
+            }
+            
+            #backtest-dashboard h4 {
+                font-size: 15px;
+            }
+            
+            #backtest-dashboard > div:first-child {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            
+            #backtest-dashboard > div:first-child > div {
+                padding: 10px;
+            }
+            
+            #backtest-dashboard > div:first-child > div > div:first-child {
+                font-size: 18px;
+            }
+            
+            #backtest-dashboard > div:last-child {
+                padding: 10px;
+            }
+            
+            #backtest-dashboard > div:last-child h5 {
+                font-size: 13px;
+            }
+            
+            #dashboard-period-stats {
+                font-size: 11px;
+            }
+            
+            #backtest-log, #backtest-numbers {
+                margin-top: 10px;
+            }
+            
+            #backtest-log h4, #backtest-numbers h4 {
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+            
+            #backtest-log-content, #backtest-numbers-content {
+                padding: 10px;
+                font-size: 11px;
+            }
+            
+            #backtest-info, #backtest-result {
+                font-size: 12px;
+                padding: 10px;
+            }
+            
+            #backtest-count {
+                width: 100%;
+                max-width: 120px;
+            }
+            
+            /* 弹窗样式 */
+            #multiple-modal > div, #win-modal > div {
+                width: 95%;
                 padding: 20px;
+                margin: 10px;
+            }
+            
+            #win-modal h2 {
+                font-size: 24px;
+            }
+            
+            #win-modal p {
+                font-size: 16px;
+            }
+        }
+        
+        /* 小屏幕手机优化 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px;
+                border-radius: 8px;
+            }
+            
+            h1 {
+                font-size: 16px;
+            }
+            
+            .action-btn {
+                padding: 12px 14px;
+                font-size: 13px;
+            }
+            
+            .number {
+                min-width: 50px;
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+            
+            .multiple-btn {
+                flex: 1 1 calc(33.333% - 5px);
+                font-size: 12px;
+            }
+            
+            #backtest-dashboard > div:first-child {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            #dashboard-period-stats > div {
+                flex-direction: column;
+                gap: 2px;
+                text-align: center;
+            }
+        }
+        
+        /* 超小屏幕手机 */
+        @media (max-width: 375px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 15px;
+            }
+            
+            .action-btn {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+            
+            .number {
+                min-width: 45px;
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+            
+            .multiple-btn {
+                flex: 1 1 calc(50% - 5px);
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <div class="header-section">
             <h1 id="title">福彩3D号码生成器</h1>
-            <div style="display: flex; flex-direction: column; gap: 8px;">
-                <button class="action-btn export-btn" onclick="logout()" style="padding: 10px 20px; font-size: 14px;">登出</button>
-                <button id="switch-lottery-btn" class="action-btn generate-btn" onclick="switchLotteryType()" style="padding: 8px 16px; font-size: 12px; background: linear-gradient(135deg, var(--success-color), #22c55e);">切换到体彩</button>
+            <div class="header-buttons">
+                <button class="action-btn export-btn" onclick="logout()">登出</button>
+                <button id="switch-lottery-btn" class="action-btn generate-btn" onclick="switchLotteryType()">切换到体彩</button>
             </div>
         </div>
         
@@ -545,6 +775,105 @@
                 </div>
             </div>
         </div>
+        
+        <!-- 回测功能模块 -->
+        <div class="form-group" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid var(--border-color);">
+            <label style="font-size: 18px; color: var(--primary-color);">回测功能</label>
+            
+            <!-- 回测模式选择 -->
+            <div style="margin-top: 15px; margin-bottom: 15px; padding: 15px; background-color: #f8f9fa; border-radius: 8px;">
+                <label style="margin-bottom: 10px;">选择回测模式：</label>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button type="button" id="mode1-btn" class="lottery-btn active" onclick="selectBacktestMode(1)" style="flex: 1; min-width: 140px; padding: 12px;">
+                        模式一：多组比对
+                    </button>
+                    <button type="button" id="mode2-btn" class="lottery-btn" onclick="selectBacktestMode(2)" style="flex: 1; min-width: 140px; padding: 12px;">
+                        模式二：固定号码比对
+                    </button>
+                </div>
+                <div id="mode-description" style="margin-top: 10px; font-size: 13px; color: #6b7280; line-height: 1.5;">
+                    每次生成新号码与历史开奖比对，中奖即停止
+                </div>
+            </div>
+            
+            <div style="margin-top: 15px; margin-bottom: 15px;">
+                <label>回测次数：</label>
+                <input type="number" id="backtest-count" min="1" max="1000" value="1" style="width: 100px; padding: 8px; border-radius: 6px; border: 1px solid var(--border-color);">
+                <span style="font-size: 12px; color: #6b7280; margin-left: 10px;">建议：1-100次</span>
+            </div>
+            <div class="action-buttons" style="margin-top: 15px;">
+                <button class="action-btn generate-btn" onclick="startBacktest()" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">开始回测</button>
+                <button class="action-btn export-btn" onclick="stopBacktest()">停止回测</button>
+            </div>
+            
+            <!-- 统计仪表盘 -->
+            <div id="backtest-dashboard" style="display: none; margin-top: 20px; padding: 20px; background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border-radius: 12px; border: 2px solid #bae6fd;">
+                <h4 style="margin-bottom: 15px; color: #0369a1; text-align: center;">📊 回测统计仪表盘</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <div style="font-size: 24px; font-weight: bold; color: #7c3aed;" id="dashboard-total">0</div>
+                        <div style="font-size: 12px; color: #6b7280;">总回测次数</div>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <div style="font-size: 24px; font-weight: bold; color: #22c55e;" id="dashboard-win">0</div>
+                        <div style="font-size: 12px; color: #6b7280;">中奖次数</div>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <div style="font-size: 24px; font-weight: bold; color: #ef4444;" id="dashboard-lose">0</div>
+                        <div style="font-size: 12px; color: #6b7280;">未中奖次数</div>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <div style="font-size: 24px; font-weight: bold; color: #f59e0b;" id="dashboard-rate">0%</div>
+                        <div style="font-size: 12px; color: #6b7280;">中奖率</div>
+                    </div>
+                </div>
+                <div style="margin-top: 15px; padding: 15px; background: white; border-radius: 8px;">
+                    <h5 style="margin-bottom: 10px; color: #374151;">各期中奖统计：</h5>
+                    <div id="dashboard-period-stats" style="font-size: 13px; line-height: 1.8;"></div>
+                </div>
+            </div>
+            
+            <div id="backtest-info" style="display: none; margin-top: 15px; padding: 15px; background-color: #f3e8ff; border-radius: 8px; color: #6b21a8; font-size: 14px;"></div>
+            <div id="backtest-result" style="display: none; margin-top: 15px; padding: 15px; background-color: #dcfce7; border-radius: 8px; color: #166534; font-size: 14px;"></div>
+            <div id="backtest-log" style="display: none; margin-top: 15px;">
+                <h4 style="margin-bottom: 10px; color: var(--text-color);">回测日志</h4>
+                <div id="backtest-log-content" style="max-height: 300px; overflow-y: auto; background-color: #f8f9fa; border-radius: 8px; padding: 15px; font-size: 13px; line-height: 1.6;"></div>
+            </div>
+            <div id="backtest-numbers" style="display: none; margin-top: 15px;">
+                <h4 style="margin-bottom: 10px; color: var(--text-color);">生成的480个号码</h4>
+                <div id="backtest-numbers-content" class="numbers" style="max-height: 200px; overflow-y: auto; background-color: #f0f9ff; border-radius: 8px; padding: 15px;"></div>
+            </div>
+        </div>
+        
+        <!-- 中奖特效弹窗 -->
+        <div id="win-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 2000; justify-content: center; align-items: center;">
+            <div style="background: linear-gradient(135deg, #fbbf24, #f59e0b); padding: 50px; border-radius: 20px; text-align: center; animation: winPulse 1s infinite;">
+                <h2 style="color: white; font-size: 36px; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">🎉 恭喜中奖！🎉</h2>
+                <p id="win-message" style="color: white; font-size: 20px; margin-bottom: 30px;"></p>
+                <button class="action-btn" onclick="closeWinModal()" style="background-color: white; color: #f59e0b; font-size: 18px; padding: 15px 40px;">确定</button>
+            </div>
+        </div>
+        
+        <style>
+            @keyframes winPulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+            }
+            
+            @keyframes confetti {
+                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+            }
+            
+            .confetti {
+                position: fixed;
+                width: 10px;
+                height: 10px;
+                background-color: #fbbf24;
+                animation: confetti 3s ease-out forwards;
+                z-index: 2001;
+            }
+        </style>
     </div>
     
     <script>
@@ -555,8 +884,8 @@
         
         let generatedNumbers = [];
         
-        // 历史开奖记录数据
-        const historyData = {
+        // 默认历史开奖记录数据
+        const defaultHistoryData = {
             '3d': [
                 { period: '2026073', number: '504' },
                 { period: '2026072', number: '245' },
@@ -622,6 +951,23 @@
                 { period: '2026044', number: '51' }
             ]
         };
+        
+        // 从localStorage加载历史开奖记录数据
+        function loadHistoryData() {
+            const savedData = localStorage.getItem('lotteryHistoryData');
+            if (savedData) {
+                return JSON.parse(savedData);
+            }
+            return JSON.parse(JSON.stringify(defaultHistoryData));
+        }
+        
+        // 保存历史开奖记录数据到localStorage
+        function saveHistoryData() {
+            localStorage.setItem('lotteryHistoryData', JSON.stringify(historyData));
+        }
+        
+        // 初始化历史开奖记录数据
+        let historyData = loadHistoryData();
         
         // 获取当前选择的彩种类型
         function getCurrentLotteryType() {
@@ -690,6 +1036,8 @@
             if (index !== -1) {
                 // 删除记录
                 data.splice(index, 1);
+                // 保存到localStorage
+                saveHistoryData();
                 alert('开奖记录已删除');
                 // 更新历史记录显示
                 displayHistory(selectedType);
@@ -734,14 +1082,50 @@
                     // 有缺失的期号，显示最早的缺失期号
                     const earliestMissingPeriod = missingPeriods[missingPeriods.length - 1];
                     document.getElementById('current-period').textContent = earliestMissingPeriod;
-                    // 提示用户
-                    setTimeout(() => {
-                        alert('请先添加缺失的开奖记录：' + earliestMissingPeriod);
-                    }, 100);
+                    
+                    // 在表单中显示缺失期号提示
+                    const periodDisplay = document.getElementById('current-period');
+                    periodDisplay.style.backgroundColor = '#fef3c7';
+                    periodDisplay.style.color = '#92400e';
+                    periodDisplay.style.border = '1px solid #fbbf24';
+                    
+                    // 添加缺失期号提示信息
+                    let infoHtml = `<div style="margin-top: 10px; padding: 10px; background-color: #fef3c7; border-radius: 6px; color: #92400e; font-size: 13px;">`;
+                    infoHtml += `<strong>提示：</strong>检测到缺失的开奖记录<br>`;
+                    if (missingPeriods.length > 1) {
+                        infoHtml += `缺失期号：${missingPeriods.join(', ')}<br>`;
+                        infoHtml += `请按顺序添加，当前添加：${earliestMissingPeriod}`;
+                    } else {
+                        infoHtml += `缺失期号：${earliestMissingPeriod}`;
+                    }
+                    infoHtml += `</div>`;
+                    
+                    // 在期号显示后添加提示信息
+                    const existingInfo = document.getElementById('missing-period-info');
+                    if (existingInfo) {
+                        existingInfo.remove();
+                    }
+                    
+                    const infoDiv = document.createElement('div');
+                    infoDiv.id = 'missing-period-info';
+                    infoDiv.innerHTML = infoHtml;
+                    periodDisplay.parentNode.insertBefore(infoDiv, periodDisplay.nextSibling);
                 } else {
                     // 没有缺失的期号，显示当前日期的期号
                     const currentPeriod = calculateCurrentPeriod();
                     document.getElementById('current-period').textContent = currentPeriod;
+                    
+                    // 恢复正常样式
+                    const periodDisplay = document.getElementById('current-period');
+                    periodDisplay.style.backgroundColor = '#f0f9ff';
+                    periodDisplay.style.color = 'var(--primary-color)';
+                    periodDisplay.style.border = '1px solid #dbeafe';
+                    
+                    // 移除缺失期号提示信息
+                    const existingInfo = document.getElementById('missing-period-info');
+                    if (existingInfo) {
+                        existingInfo.remove();
+                    }
                 }
             } else {
                 // 隐藏添加记录表单
@@ -838,25 +1222,6 @@
                 return;
             }
             
-            // 检查是否有未添加的期号（排除当前正在添加的期号）
-            const missingPeriods = checkMissingPeriods();
-            const otherMissingPeriods = missingPeriods.filter(p => p !== period);
-            
-            if (otherMissingPeriods.length > 0) {
-                // 强制提示用户添加缺失的期号
-                const confirmAdd = confirm('检测到有未添加的开奖记录：\n' + otherMissingPeriods.join('\n') + '\n\n请先添加这些期号的记录。');
-                if (confirmAdd) {
-                    // 显示添加记录表单，并设置为最早的缺失期号
-                    const earliestMissingPeriod = otherMissingPeriods[otherMissingPeriods.length - 1];
-                    document.getElementById('current-period').textContent = earliestMissingPeriod;
-                    // 清空输入框
-                    document.getElementById('new-number').value = '';
-                    return;
-                } else {
-                    return;
-                }
-            }
-            
             // 格式化号码（确保是数字）
             const formattedNumber = number.replace(/\D/g, '');
             
@@ -868,15 +1233,63 @@
                 alert('开奖记录已更新');
             } else {
                 // 添加新记录
-                historyData[selectedType].unshift({ period, number: formattedNumber });
+                historyData[selectedType].push({ period, number: formattedNumber });
+                // 按期号从大到小排序
+                historyData[selectedType].sort((a, b) => parseInt(b.period) - parseInt(a.period));
                 alert('开奖记录已添加');
             }
+            
+            // 保存到localStorage
+            saveHistoryData();
             
             // 清空输入
             document.getElementById('new-number').value = '';
             
-            // 隐藏添加记录表单
-            document.getElementById('add-record-container').style.display = 'none';
+            // 检查是否还有其他缺失的期号
+            const remainingMissingPeriods = checkMissingPeriods();
+            
+            if (remainingMissingPeriods.length > 0) {
+                // 还有缺失的期号，自动切换到下一个
+                const nextMissingPeriod = remainingMissingPeriods[remainingMissingPeriods.length - 1];
+                document.getElementById('current-period').textContent = nextMissingPeriod;
+                
+                // 更新提示信息
+                const periodDisplay = document.getElementById('current-period');
+                periodDisplay.style.backgroundColor = '#fef3c7';
+                periodDisplay.style.color = '#92400e';
+                periodDisplay.style.border = '1px solid #fbbf24';
+                
+                // 更新缺失期号提示信息
+                let infoHtml = `<div style="margin-top: 10px; padding: 10px; background-color: #fef3c7; border-radius: 6px; color: #92400e; font-size: 13px;">`;
+                infoHtml += `<strong>提示：</strong>检测到缺失的开奖记录<br>`;
+                if (remainingMissingPeriods.length > 1) {
+                    infoHtml += `缺失期号：${remainingMissingPeriods.join(', ')}<br>`;
+                    infoHtml += `请按顺序添加，当前添加：${nextMissingPeriod}`;
+                } else {
+                    infoHtml += `缺失期号：${nextMissingPeriod}`;
+                }
+                infoHtml += `</div>`;
+                
+                // 更新提示信息
+                const existingInfo = document.getElementById('missing-period-info');
+                if (existingInfo) {
+                    existingInfo.innerHTML = infoHtml;
+                } else {
+                    const infoDiv = document.createElement('div');
+                    infoDiv.id = 'missing-period-info';
+                    infoDiv.innerHTML = infoHtml;
+                    periodDisplay.parentNode.insertBefore(infoDiv, periodDisplay.nextSibling);
+                }
+            } else {
+                // 没有缺失的期号了，关闭表单
+                document.getElementById('add-record-container').style.display = 'none';
+                
+                // 移除缺失期号提示信息
+                const existingInfo = document.getElementById('missing-period-info');
+                if (existingInfo) {
+                    existingInfo.remove();
+                }
+            }
             
             // 如果历史记录面板是打开的，更新显示
             const historyContainer = document.getElementById('history-container');
@@ -1145,6 +1558,496 @@
             
             // 显示倍数选择弹窗
             showMultipleModal();
+        }
+        
+        // 回测功能相关变量
+        let backtestRunning = false;
+        let backtestCurrentIndex = 0;
+        let backtestHistoryList = [];
+        let backtestTotalCount = 0;
+        let backtestCurrentCount = 0;
+        let backtestStats = {
+            total: 0,
+            win: 0,
+            lose: 0,
+            periodWins: {} // 记录每期的中奖次数
+        };
+        let currentBacktestMode = 1; // 当前回测模式：1-多组比对，2-固定号码比对
+        let fixedBacktestNumbers = []; // 模式二：固定的480个号码
+        
+        // 选择回测模式
+        function selectBacktestMode(mode) {
+            currentBacktestMode = mode;
+            
+            // 更新按钮状态
+            document.getElementById('mode1-btn').classList.toggle('active', mode === 1);
+            document.getElementById('mode2-btn').classList.toggle('active', mode === 2);
+            
+            // 更新描述
+            const description = document.getElementById('mode-description');
+            if (mode === 1) {
+                description.textContent = '模式一：每次生成新号码与历史开奖比对，中奖即停止（使用最近10期）';
+            } else {
+                description.textContent = '模式二：生成一组固定号码，依次与最近20期开奖比对，输出第一次中奖结果';
+            }
+        }
+        
+        // 开始回测
+        function startBacktest() {
+            if (backtestRunning) {
+                alert('回测正在进行中');
+                return;
+            }
+            
+            const selectedType = getCurrentLotteryType();
+            const data = historyData[selectedType];
+            
+            if (data.length === 0) {
+                alert('没有历史开奖记录');
+                return;
+            }
+            
+            // 获取回测次数
+            const countInput = document.getElementById('backtest-count');
+            backtestTotalCount = parseInt(countInput.value) || 1;
+            if (backtestTotalCount < 1 || backtestTotalCount > 1000) {
+                alert('请输入1-1000之间的回测次数');
+                return;
+            }
+            
+            // 根据模式选择历史记录期数
+            const historyCount = currentBacktestMode === 1 ? 10 : 20;
+            
+            // 按期号从大到小排序，取最近N期
+            const sortedData = [...data].sort((a, b) => parseInt(b.period) - parseInt(a.period));
+            const recentData = sortedData.slice(0, historyCount);
+            
+            // 再按期号从小到大排序（从旧到新）
+            backtestHistoryList = recentData.sort((a, b) => parseInt(a.period) - parseInt(b.period));
+            backtestCurrentIndex = 0;
+            backtestCurrentCount = 0;
+            backtestRunning = true;
+            
+            // 初始化统计数据
+            backtestStats = {
+                total: backtestTotalCount,
+                win: 0,
+                lose: 0,
+                periodWins: {},
+                firstWinRound: {} // 记录每次回测第一次中奖的期数
+            };
+            // 初始化每期中奖次数为0
+            backtestHistoryList.forEach(item => {
+                backtestStats.periodWins[item.period] = 0;
+            });
+            
+            // 模式二：预生成固定的480个号码
+            if (currentBacktestMode === 2) {
+                const numbers = new Set();
+                while (numbers.size < 480) {
+                    const num = Math.floor(Math.random() * 1000);
+                    const formattedNum = num.toString().padStart(3, '0');
+                    numbers.add(formattedNum);
+                }
+                fixedBacktestNumbers = Array.from(numbers).sort((a, b) => a.localeCompare(b));
+            }
+            
+            // 显示回测信息
+            const backtestInfo = document.getElementById('backtest-info');
+            backtestInfo.style.display = 'block';
+            const modeText = currentBacktestMode === 1 ? '模式一（多组比对）' : '模式二（固定号码比对）';
+            backtestInfo.innerHTML = `回测开始！${modeText}<br>共 ${backtestTotalCount} 次回测，使用最近${historyCount}期历史记录<br>从期号 ${backtestHistoryList[0].period} 开始，到期号 ${backtestHistoryList[backtestHistoryList.length - 1].period}`;
+            
+            // 显示日志区域
+            document.getElementById('backtest-log').style.display = 'block';
+            document.getElementById('backtest-numbers').style.display = 'block';
+            document.getElementById('backtest-dashboard').style.display = 'block';
+            
+            // 清空日志
+            document.getElementById('backtest-log-content').innerHTML = '';
+            document.getElementById('backtest-numbers-content').innerHTML = '';
+            
+            // 隐藏结果
+            document.getElementById('backtest-result').style.display = 'none';
+            
+            // 更新仪表盘
+            updateDashboard();
+            
+            // 显示固定的号码（模式二）
+            if (currentBacktestMode === 2) {
+                displayFixedBacktestNumbers();
+            }
+            
+            // 开始第一轮回测
+            setTimeout(() => runBacktestBatch(), 100);
+        }
+        
+        // 显示模式二固定的号码
+        function displayFixedBacktestNumbers() {
+            const numbersContent = document.getElementById('backtest-numbers-content');
+            numbersContent.innerHTML = '';
+            
+            fixedBacktestNumbers.forEach(num => {
+                const numDiv = document.createElement('div');
+                numDiv.className = 'number';
+                numDiv.textContent = num;
+                numbersContent.appendChild(numDiv);
+            });
+        }
+        
+        // 执行一批回测
+        function runBacktestBatch() {
+            if (!backtestRunning || backtestCurrentCount >= backtestTotalCount) {
+                // 所有回测完成
+                backtestRunning = false;
+                const backtestInfo = document.getElementById('backtest-info');
+                const modeText = currentBacktestMode === 1 ? '模式一' : '模式二';
+                backtestInfo.innerHTML = `${modeText} 回测完成！共进行 ${backtestTotalCount} 次回测<br>中奖 ${backtestStats.win} 次，中奖率 ${((backtestStats.win / backtestTotalCount) * 100).toFixed(1)}%`;
+                return;
+            }
+            
+            backtestCurrentCount++;
+            
+            if (currentBacktestMode === 1) {
+                // 模式一：每次生成新号码与历史开奖比对
+                runMode1Backtest();
+            } else {
+                // 模式二：固定号码与多期比对
+                runMode2Backtest();
+            }
+        }
+        
+        // 模式一：多组比对
+        function runMode1Backtest() {
+            // 执行一次完整的10期回测
+            let winInThisBatch = false;
+            let winPeriod = null;
+            let winRound = 0;
+            
+            for (let i = 0; i < backtestHistoryList.length; i++) {
+                const currentHistory = backtestHistoryList[i];
+                const targetNumber = currentHistory.number.padStart(3, '0');
+                const targetPeriod = currentHistory.period;
+                
+                // 生成480个号码
+                const numbers = new Set();
+                while (numbers.size < 480) {
+                    const num = Math.floor(Math.random() * 1000);
+                    const formattedNum = num.toString().padStart(3, '0');
+                    numbers.add(formattedNum);
+                }
+                
+                const generatedNums = Array.from(numbers).sort((a, b) => a.localeCompare(b));
+                
+                // 检查是否中奖
+                const isWin = generatedNums.includes(targetNumber);
+                
+                if (isWin) {
+                    backtestStats.win++;
+                    backtestStats.periodWins[targetPeriod]++;
+                    winInThisBatch = true;
+                    winPeriod = targetPeriod;
+                    winRound = i + 1;
+                    break; // 中奖后停止本轮
+                }
+            }
+            
+            if (!winInThisBatch) {
+                backtestStats.lose++;
+            }
+            
+            // 更新回测信息
+            const backtestInfo = document.getElementById('backtest-info');
+            if (winInThisBatch) {
+                backtestInfo.innerHTML = `第 ${backtestCurrentCount}/${backtestTotalCount} 次回测：第 ${winRound} 期中奖<br>期号：${winPeriod}`;
+            } else {
+                backtestInfo.innerHTML = `第 ${backtestCurrentCount}/${backtestTotalCount} 次回测：未中奖<br>${backtestHistoryList.length}期均未中奖`;
+            }
+            
+            // 更新仪表盘
+            updateDashboard();
+            
+            // 显示最后一次生成的号码（如果是最后一次或每10次显示一次）
+            if (backtestCurrentCount === backtestTotalCount || backtestCurrentCount % 10 === 0) {
+                displayLastGeneratedNumbers();
+            }
+            
+            // 添加日志
+            addBacktestLog(backtestCurrentCount, winInThisBatch, winRound, winPeriod);
+            
+            // 继续下一批
+            setTimeout(() => runBacktestBatch(), 50);
+        }
+        
+        // 模式二：固定号码与多期比对
+        function runMode2Backtest() {
+            let winInThisBatch = false;
+            let winPeriod = null;
+            let winRound = 0;
+            let firstWinRound = 0; // 记录第一次中奖的期数
+            
+            // 使用固定的480个号码，依次与20期开奖号码比对
+            for (let i = 0; i < backtestHistoryList.length; i++) {
+                const currentHistory = backtestHistoryList[i];
+                const targetNumber = currentHistory.number.padStart(3, '0');
+                const targetPeriod = currentHistory.period;
+                
+                // 检查固定号码是否包含开奖号码
+                const isWin = fixedBacktestNumbers.includes(targetNumber);
+                
+                if (isWin) {
+                    // 第一次中奖
+                    if (!winInThisBatch) {
+                        backtestStats.win++;
+                        winInThisBatch = true;
+                        winPeriod = targetPeriod;
+                        winRound = i + 1;
+                        firstWinRound = i + 1;
+                        backtestStats.firstWinRound[backtestCurrentCount] = firstWinRound;
+                    }
+                    // 统计每期中奖次数（可能多期都中）
+                    backtestStats.periodWins[targetPeriod]++;
+                }
+            }
+            
+            if (!winInThisBatch) {
+                backtestStats.lose++;
+                backtestStats.firstWinRound[backtestCurrentCount] = 0; // 0表示未中奖
+            }
+            
+            // 更新回测信息
+            const backtestInfo = document.getElementById('backtest-info');
+            if (winInThisBatch) {
+                backtestInfo.innerHTML = `第 ${backtestCurrentCount}/${backtestTotalCount} 次回测：第 ${winRound} 期首次中奖<br>期号：${winPeriod}`;
+            } else {
+                backtestInfo.innerHTML = `第 ${backtestCurrentCount}/${backtestTotalCount} 次回测：未中奖<br>${backtestHistoryList.length}期均未中奖`;
+            }
+            
+            // 更新仪表盘（模式二专用）
+            updateDashboardMode2();
+            
+            // 添加模式二日志
+            addBacktestLogMode2(backtestCurrentCount, winInThisBatch, firstWinRound, winPeriod);
+            
+            // 继续下一批（重新生成一组固定号码）
+            if (backtestCurrentCount < backtestTotalCount) {
+                // 生成新的固定号码
+                const numbers = new Set();
+                while (numbers.size < 480) {
+                    const num = Math.floor(Math.random() * 1000);
+                    const formattedNum = num.toString().padStart(3, '0');
+                    numbers.add(formattedNum);
+                }
+                fixedBacktestNumbers = Array.from(numbers).sort((a, b) => a.localeCompare(b));
+                
+                // 更新显示的号码
+                if (backtestCurrentCount % 10 === 0) {
+                    displayFixedBacktestNumbers();
+                }
+            }
+            
+            // 继续下一批
+            setTimeout(() => runBacktestBatch(), 50);
+        }
+        
+        // 更新仪表盘
+        function updateDashboard() {
+            document.getElementById('dashboard-total').textContent = backtestStats.total;
+            document.getElementById('dashboard-win').textContent = backtestStats.win;
+            document.getElementById('dashboard-lose').textContent = backtestStats.lose;
+            const rate = backtestStats.total > 0 ? ((backtestStats.win / backtestStats.total) * 100).toFixed(1) : 0;
+            document.getElementById('dashboard-rate').textContent = rate + '%';
+            
+            // 更新各期中奖统计
+            let periodStatsHtml = '';
+            backtestHistoryList.forEach((item, index) => {
+                const period = item.period;
+                const count = backtestStats.periodWins[period] || 0;
+                const percentage = backtestStats.total > 0 ? ((count / backtestStats.total) * 100).toFixed(1) : 0;
+                periodStatsHtml += `<div style="display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #e5e7eb;">`;
+                periodStatsHtml += `<span>第 ${index + 1} 期 (${period})：</span>`;
+                periodStatsHtml += `<span style="font-weight: bold; color: #7c3aed;">${count} 次 (${percentage}%)</span>`;
+                periodStatsHtml += `</div>`;
+            });
+            document.getElementById('dashboard-period-stats').innerHTML = periodStatsHtml;
+        }
+        
+        // 模式二专用仪表盘更新
+        function updateDashboardMode2() {
+            document.getElementById('dashboard-total').textContent = backtestStats.total;
+            document.getElementById('dashboard-win').textContent = backtestStats.win;
+            document.getElementById('dashboard-lose').textContent = backtestStats.lose;
+            const rate = backtestStats.total > 0 ? ((backtestStats.win / backtestStats.total) * 100).toFixed(1) : 0;
+            document.getElementById('dashboard-rate').textContent = rate + '%';
+            
+            // 统计第一次中奖的期数分布
+            const firstWinDistribution = {};
+            for (let i = 1; i <= backtestHistoryList.length; i++) {
+                firstWinDistribution[i] = 0;
+            }
+            firstWinDistribution['未中奖'] = 0;
+            
+            Object.values(backtestStats.firstWinRound).forEach(round => {
+                if (round === 0) {
+                    firstWinDistribution['未中奖']++;
+                } else {
+                    firstWinDistribution[round]++;
+                }
+            });
+            
+            // 更新各期中奖统计（模式二显示首次中奖分布）
+            let periodStatsHtml = '<div style="margin-bottom: 10px; font-weight: bold; color: #374151;">首次中奖期数分布：</div>';
+            
+            // 显示各期首次中奖次数
+            backtestHistoryList.forEach((item, index) => {
+                const period = item.period;
+                const count = firstWinDistribution[index + 1] || 0;
+                const percentage = backtestStats.total > 0 ? ((count / backtestStats.total) * 100).toFixed(1) : 0;
+                periodStatsHtml += `<div style="display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #e5e7eb;">`;
+                periodStatsHtml += `<span>第 ${index + 1} 期首次中奖 (${period})：</span>`;
+                periodStatsHtml += `<span style="font-weight: bold; color: #22c55e;">${count} 次 (${percentage}%)</span>`;
+                periodStatsHtml += `</div>`;
+            });
+            
+            // 显示未中奖次数
+            const noWinCount = firstWinDistribution['未中奖'];
+            const noWinPercentage = backtestStats.total > 0 ? ((noWinCount / backtestStats.total) * 100).toFixed(1) : 0;
+            periodStatsHtml += `<div style="display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #e5e7eb; margin-top: 10px;">`;
+            periodStatsHtml += `<span style="color: #ef4444;">未中奖：</span>`;
+            periodStatsHtml += `<span style="font-weight: bold; color: #ef4444;">${noWinCount} 次 (${noWinPercentage}%)</span>`;
+            periodStatsHtml += `</div>`;
+            
+            document.getElementById('dashboard-period-stats').innerHTML = periodStatsHtml;
+        }
+        
+        // 显示最后一次生成的号码
+        function displayLastGeneratedNumbers() {
+            const numbersContent = document.getElementById('backtest-numbers-content');
+            numbersContent.innerHTML = '';
+            
+            // 生成一组新的480个号码用于显示
+            const numbers = new Set();
+            while (numbers.size < 480) {
+                const num = Math.floor(Math.random() * 1000);
+                const formattedNum = num.toString().padStart(3, '0');
+                numbers.add(formattedNum);
+            }
+            
+            const generatedNums = Array.from(numbers).sort((a, b) => a.localeCompare(b));
+            generatedNums.forEach(num => {
+                const numDiv = document.createElement('div');
+                numDiv.className = 'number';
+                numDiv.textContent = num;
+                numbersContent.appendChild(numDiv);
+            });
+        }
+        
+        // 添加回测日志
+        function addBacktestLog(count, isWin, winRound, winPeriod) {
+            const logContent = document.getElementById('backtest-log-content');
+            const logEntry = document.createElement('div');
+            logEntry.style.marginBottom = '8px';
+            logEntry.style.padding = '8px';
+            logEntry.style.borderRadius = '6px';
+            logEntry.style.backgroundColor = isWin ? '#dcfce7' : '#fee2e2';
+            logEntry.style.fontSize = '12px';
+            
+            let logHtml = `<strong>第 ${count} 次回测：</strong>`;
+            if (isWin) {
+                logHtml += `<span style="color: #22c55e;">✓ 第 ${winRound} 期中奖 (${winPeriod})</span>`;
+            } else {
+                logHtml += `<span style="color: #ef4444;">✗ 未中奖</span>`;
+            }
+            logEntry.innerHTML = logHtml;
+            logContent.insertBefore(logEntry, logContent.firstChild);
+            
+            // 限制日志数量，只保留最近50条
+            while (logContent.children.length > 50) {
+                logContent.removeChild(logContent.lastChild);
+            }
+        }
+        
+        // 模式二专用日志
+        function addBacktestLogMode2(count, isWin, firstWinRound, winPeriod) {
+            const logContent = document.getElementById('backtest-log-content');
+            const logEntry = document.createElement('div');
+            logEntry.style.marginBottom = '8px';
+            logEntry.style.padding = '8px';
+            logEntry.style.borderRadius = '6px';
+            logEntry.style.backgroundColor = isWin ? '#dcfce7' : '#fee2e2';
+            logEntry.style.fontSize = '12px';
+            
+            let logHtml = `<strong>第 ${count} 次回测：</strong>`;
+            if (isWin) {
+                logHtml += `<span style="color: #22c55e;">✓ 第 ${firstWinRound} 期首次中奖 (${winPeriod})</span>`;
+            } else {
+                logHtml += `<span style="color: #ef4444;">✗ 20期均未中奖</span>`;
+            }
+            logEntry.innerHTML = logHtml;
+            logContent.insertBefore(logEntry, logContent.firstChild);
+            
+            // 限制日志数量，只保留最近50条
+            while (logContent.children.length > 50) {
+                logContent.removeChild(logContent.lastChild);
+            }
+        }
+        
+        // 停止回测
+        function stopBacktest() {
+            backtestRunning = false;
+            backtestCurrentIndex = 0;
+            
+            const backtestInfo = document.getElementById('backtest-info');
+            backtestInfo.innerHTML = `回测已停止，已完成 ${backtestCurrentCount}/${backtestTotalCount} 次<br>中奖 ${backtestStats.win} 次，中奖率 ${((backtestStats.win / backtestCurrentCount) * 100).toFixed(1)}%`;
+        }
+        
+        // 播放中奖语音提示
+        function playWinVoice(round) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(`恭喜中奖！第${round}期中奖！`);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.9;
+                utterance.pitch = 1.2;
+                speechSynthesis.speak(utterance);
+            }
+        }
+        
+        // 显示中奖特效
+        function showWinEffect(round, period, number) {
+            // 显示中奖弹窗
+            const winModal = document.getElementById('win-modal');
+            const winMessage = document.getElementById('win-message');
+            winMessage.innerHTML = `第 ${round} 期中奖！<br>期号：${period}<br>开奖号码：${number}`;
+            winModal.style.display = 'flex';
+            
+            // 创建彩带特效
+            createConfetti();
+        }
+        
+        // 创建彩带特效
+        function createConfetti() {
+            const colors = ['#fbbf24', '#f87171', '#60a5fa', '#34d399', '#a78bfa', '#f472b6'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    // 3秒后移除彩带
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3000);
+                }, i * 50);
+            }
+        }
+        
+        // 关闭中奖弹窗
+        function closeWinModal() {
+            document.getElementById('win-modal').style.display = 'none';
         }
         
         // 无操作自动退出功能
